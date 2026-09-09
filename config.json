@@ -1,5 +1,5 @@
 {
     "postItEffect": true,
-    "blurEffect": true,
+    "blurEffect": false,
     "shineEffect": false
 }
