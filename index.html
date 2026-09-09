@@ -264,7 +264,7 @@
             perspective: 1000px;
         }
 
-        /* Flat, undistorted 2D Drop Shadow */
+        /* EXACT FOOTPRINT SHADOW (No offset, perfectly aligned) */
         body.effect-postit .grid-item::before {
             content: '';
             position: absolute;
@@ -272,16 +272,14 @@
             width: 100%; height: 100%;
             background-color: rgba(0, 0, 0, 0.35);
             opacity: 0; 
-            transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1), transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             pointer-events: none;
             z-index: 0;
-            transform: translate(0, 0); /* Pure 2D positioning */
         }
 
         body.effect-postit .grid-item:hover::before,
         body.effect-postit .grid-item.hovered::before {
             opacity: 1; 
-            transform: translate(12px, 12px); /* Offsets the shadow strictly in 2D */
         }
 
         /* 3D Lift applied ONLY to image card */
@@ -326,12 +324,12 @@
 
         /* ---------- END TOGGLEABLE EFFECTS ---------- */
 
-        /* Overlay Darkening & Text */
+        /* Overlay & Text */
         .overlay {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.5); /* Default if active */
             opacity: 0;
             transition: opacity 0.3s ease, background-color 0.3s ease;
             color: #ffffff;
@@ -339,7 +337,7 @@
             z-index: 15; 
         }
 
-        /* Config option to disable dark overlay highlight */
+        /* Completely disables the dark shadow tint */
         body.no-dark-overlay .overlay {
             background-color: transparent !important;
         }
@@ -356,6 +354,7 @@
             font-size: 0.9rem;
             letter-spacing: 0.5px;
             text-transform: uppercase;
+            text-shadow: 0px 2px 5px rgba(0,0,0,0.7);
         }
 
         .overlay-caption {
@@ -365,6 +364,7 @@
             font-weight: normal;
             line-height: 1.3;
             max-width: 90%;
+            text-shadow: 0px 2px 5px rgba(0,0,0,0.7);
         }
 
         /* 6. MODAL POPUP STYLING */
@@ -551,7 +551,7 @@
             postItEffect: true,
             blurEffect: true,
             shineEffect: true,
-            darkOverlay: true
+            darkOverlay: false // Now defaults to false (disabled)
         };
 
         fetch('config.json')
@@ -561,7 +561,11 @@
                 if (config.postItEffect) document.body.classList.add('effect-postit');
                 if (config.blurEffect) document.body.classList.add('effect-blur');
                 if (config.shineEffect) document.body.classList.add('effect-shine');
-                if (config.darkOverlay === false) document.body.classList.add('no-dark-overlay');
+                
+                // If it isn't strictly set to true, disable the dark overlay
+                if (config.darkOverlay !== true) {
+                    document.body.classList.add('no-dark-overlay');
+                }
             });
 
         // --- 2. HERO FADE & BLUR ---
