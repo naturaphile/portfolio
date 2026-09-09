@@ -68,32 +68,31 @@
             font-size: 4.5rem;
             line-height: 1;
             margin-bottom: 2rem;
-            letter-spacing: -0.04em;
             font-weight: bold;
             text-transform: lowercase; 
         }
 
-        /* TEXTURED NAME HOVER EFFECT */
+        /* XEROX STAMP NAME HOVER EFFECT */
         .name-first, .name-last {
+            display: inline-block;
             color: #ffffff;
-            background-size: cover;
-            background-position: center;
-            -webkit-background-clip: text;
-            background-clip: text;
-            transition: color 0.3s ease-in-out;
-            cursor: default; /* Removed crosshair, reverted to standard cursor */
+            letter-spacing: -0.04em;
+            transition: all 0.15s cubic-bezier(0.25, 1, 0.5, 1);
+            cursor: default; 
         }
 
-        .name-first {
-            background-image: url('texture-flannel.jpg'); 
+        .name-first:hover {
+            color: #e0e0e0;
+            transform: rotate(-1.5deg) scale(0.98) translateY(2px);
+            text-shadow: 3px 3px 0px #444444;
+            letter-spacing: -2px;
         }
 
-        .name-last {
-            background-image: url('texture-grunge-paper.jpg'); 
-        }
-
-        .name-first:hover, .name-last:hover {
-            color: transparent;
+        .name-last:hover {
+            color: #e0e0e0;
+            transform: rotate(1.5deg) scale(0.98) translateY(-1px);
+            text-shadow: -3px 3px 0px #444444;
+            letter-spacing: -2px;
         }
 
         .hero-container .location {
@@ -263,7 +262,7 @@
         /* A) POST-IT NOTE LIFT EFFECT */
         body.effect-postit .grid-item {
             perspective: 1200px; 
-            transform-style: preserve-3d; /* Fixes 3D stacking clipping */
+            transform-style: preserve-3d; /* Enables clean 3D depth sorting */
         }
 
         /* The Hard Drop Shadow */
@@ -275,7 +274,7 @@
             background-color: #000000;
             opacity: 0; 
             transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            transform: translateZ(-20px); /* Physically pushes the shadow behind the image in 3D space */
+            transform: translateZ(-50px); /* Pushed deep into 3D space behind the image */
             pointer-events: none;
         }
 
@@ -288,12 +287,13 @@
         body.effect-postit .grid-item-inner {
             transform-origin: top left; 
             transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            transform: translateZ(0); /* Anchors image forward */
+            transform-style: preserve-3d;
         }
 
         body.effect-postit .grid-item:hover .grid-item-inner,
         body.effect-postit .grid-item.hovered .grid-item-inner {
-            transform: rotateX(-8deg) rotateY(8deg) scale(1.02) translateZ(1px);
+            /* translateZ(60px) guarantees full clearance above the shadow plane at all tilt angles */
+            transform: translateZ(60px) rotateX(-8deg) rotateY(8deg) scale(1.02);
         }
 
         /* B) BLUR EFFECT */
@@ -313,7 +313,7 @@
             height: 100%;
             background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
             transform: skewX(-25deg);
-            z-index: 3;
+            z-index: 10;
             transition: left 0.7s ease;
             pointer-events: none;
         }
@@ -335,7 +335,7 @@
             transition: opacity 0.3s ease;
             color: #ffffff;
             pointer-events: none;
-            z-index: 4; 
+            z-index: 15; 
         }
 
         .grid-item:hover .overlay,
@@ -418,6 +418,7 @@
             color: #000000;
             text-transform: uppercase;
             letter-spacing: -0.02em;
+            white-space: pre-line;
         }
 
         /* Mobile Layout */
@@ -625,7 +626,7 @@
                 const img = this.querySelector('img');
                 const titleText = this.querySelector('.overlay-title').innerText;
                 modalImg.src = img.src;
-                modalCaptionText.innerText = `"${titleText.toUpperCase()}"`;
+                modalCaptionText.innerText = titleText; 
                 
                 modal.style.display = 'flex';
                 setTimeout(() => modal.classList.add('show'), 10);
