@@ -259,12 +259,11 @@
 
         /* ---------- TOGGLEABLE EFFECTS ---------- */
 
-        /* A) POST-IT NOTE LIFT EFFECT */
         body.effect-postit .grid-item {
             perspective: 1000px;
         }
 
-        /* EXACT FOOTPRINT SHADOW (No offset, perfectly aligned) */
+        /* EXACT FOOTPRINT SHADOW */
         body.effect-postit .grid-item::before {
             content: '';
             position: absolute;
@@ -324,21 +323,17 @@
 
         /* ---------- END TOGGLEABLE EFFECTS ---------- */
 
-        /* Overlay & Text */
+        /* Overlay & Text - INVERT FIX APPLIED HERE */
         .overlay {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Default if active */
+            background-color: transparent; /* No dark tint needed anymore */
             opacity: 0;
-            transition: opacity 0.3s ease, background-color 0.3s ease;
+            transition: opacity 0.3s ease;
             pointer-events: none;
             z-index: 15; 
-        }
-
-        /* Completely disables the dark shadow tint */
-        body.no-dark-overlay .overlay {
-            background-color: transparent !important;
+            mix-blend-mode: difference; /* Blends the whole container against the image */
         }
 
         .grid-item:hover .overlay,
@@ -353,8 +348,8 @@
             font-size: 0.9rem;
             letter-spacing: 0.5px;
             text-transform: uppercase;
-            color: #ffffff; /* Combined with difference creates true inversion */
-            mix-blend-mode: difference;
+            color: #ffffff; /* Combined with difference makes pure inversion */
+            /* Removed text-shadow for a clean read */
         }
 
         .overlay-caption {
@@ -364,8 +359,7 @@
             font-weight: normal;
             line-height: 1.3;
             max-width: 90%;
-            color: #ffffff; /* Combined with difference creates true inversion */
-            mix-blend-mode: difference;
+            color: #ffffff; /* Combined with difference makes pure inversion */
         }
 
         /* 6. MODAL POPUP STYLING */
@@ -551,8 +545,7 @@
         const defaultConfig = {
             postItEffect: true,
             blurEffect: true,
-            shineEffect: true,
-            darkOverlay: false // Now defaults to false (disabled)
+            shineEffect: true
         };
 
         fetch('config.json')
@@ -562,11 +555,6 @@
                 if (config.postItEffect) document.body.classList.add('effect-postit');
                 if (config.blurEffect) document.body.classList.add('effect-blur');
                 if (config.shineEffect) document.body.classList.add('effect-shine');
-                
-                // If it isn't strictly set to true, disable the dark overlay
-                if (config.darkOverlay !== true) {
-                    document.body.classList.add('no-dark-overlay');
-                }
             });
 
         // --- 2. HERO FADE & BLUR ---
