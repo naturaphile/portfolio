@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
+    <title>Nathan Ramirez | Portfolio</title>
     <style>
-        /* 1. AUTO-LOADS FONT (.woff2, .woff, .ttf, or .otf named 'helvetica') */
+        /* 1. AUTO-LOADS FONTS (Normal and Bold weights) */
         @font-face {
             font-family: 'HelveticaCustom';
             src: url('helvetica.woff2') format('woff2'),
@@ -13,6 +13,16 @@
                  url('helvetica.ttf') format('truetype'),
                  url('helvetica.otf') format('opentype');
             font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'HelveticaCustom';
+            src: url('helvetica-bold.woff2') format('woff2'),
+                 url('helvetica-bold.woff') format('woff'),
+                 url('helvetica-bold.ttf') format('truetype'),
+                 url('helvetica-bold.otf') format('opentype');
+            font-weight: bold;
             font-style: normal;
         }
 
@@ -45,24 +55,34 @@
         }
 
         .hero-content {
-            will-change: opacity, transform;
+            will-change: opacity;
             transition: opacity 0.05s linear;
         }
 
         .hero-container h1 {
-            font-size: 3.5rem;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.02em;
+            font-size: 4.5rem;
+            line-height: 1;
+            margin-bottom: 2rem;
+            letter-spacing: -0.04em;
             font-weight: bold;
+            text-transform: uppercase;
         }
 
-        .hero-container p {
+        .hero-container .location {
+            font-size: 0.85rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .hero-container .role {
             font-size: 1rem;
-            max-width: 550px;
-            line-height: 1.6;
+            text-transform: lowercase;
+            color: #888888;
             margin-bottom: 3rem;
-            color: #e0e0e0;
+            letter-spacing: -0.01em;
         }
 
         .btn {
@@ -98,14 +118,13 @@
         .white-layer {
             position: relative;
             z-index: 2;
-            margin-top: 100vh; /* Pushes white layer below fold initially */
+            margin-top: 100vh;
             background-color: #ffffff;
             color: #000000;
             min-height: 100vh;
             box-shadow: 0 -15px 30px rgba(0, 0, 0, 0.4);
         }
 
-        /* White Section Header Bar */
         .white-header {
             position: sticky;
             top: 0;
@@ -134,7 +153,7 @@
             color: #888888;
             text-decoration: none;
             font-size: 0.7rem;
-            font-weight: 600;
+            font-weight: bold;
             letter-spacing: 1px;
             text-transform: uppercase;
             transition: color 0.2s ease;
@@ -144,7 +163,7 @@
             color: #000000;
         }
 
-        /* 4. 3x3 PHOTO GRID */
+        /* 4. 3x3 PHOTO GRID WITH HOVER EFFECTS */
         .grid-container {
             padding: 1rem 5% 6rem 5%;
         }
@@ -162,6 +181,7 @@
             background-color: #f2f2f2;
             overflow: hidden;
             position: relative;
+            cursor: pointer;
         }
 
         .grid-item img {
@@ -169,81 +189,112 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            transition: transform 0.4s ease;
+        }
+
+        /* Hover Overlay Layer */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* 50% darker */
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            color: #ffffff;
+            pointer-events: none; /* Let clicks pass through to the image if needed later */
+        }
+
+        .grid-item:hover .overlay {
+            opacity: 1;
+        }
+
+        /* Text Positioning (exactly 5px margins) */
+        .overlay-title {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .overlay-caption {
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            font-size: 0.8rem;
+            font-weight: normal;
+            line-height: 1.3;
+            max-width: 90%;
         }
 
         /* Mobile Layout */
         @media (max-width: 900px) {
             .grid { grid-template-columns: repeat(2, 1fr); }
-            .hero-container h1 { font-size: 2.5rem; }
+            .hero-container h1 { font-size: 3rem; }
             .white-header { flex-direction: column; gap: 1rem; align-items: flex-start; }
         }
         @media (max-width: 600px) {
             .grid { grid-template-columns: 1fr; }
+            .hero-container h1 { font-size: 2.2rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- FIXED HERO SECTION -->
     <div class="hero-container">
         <div class="hero-content">
-            <h1>Hi, I'm Jimmy.<br>Designer and<br>problem solver.</h1>
-            <p>Welcome to my portfolio of work. I am a freelance designer based in Warrington, UK, creating effective, exciting and engaging branding solutions.</p>
+            <h1>NATHAN RAMIREZ</h1>
+            <p class="location">LOS ANGELES, CA</p>
+            <p class="role">freelance designer and creative director</p>
             <a href="mailto:your@email.com" class="btn">Ask me a question</a>
         </div>
         <div class="scroll-arrow"></div>
     </div>
 
-    <!-- SLIDING WHITE OVERLAY LAYER -->
     <div class="white-layer">
-        
-        <!-- HEADER (Appears as white layer slides up) -->
         <header class="white-header">
-            <div class="brand-name">JIMMY DAVIES</div>
+            <div class="brand-name">NATHAN RAMIREZ</div>
             <nav class="white-nav">
                 <a href="#" class="active">Projects</a>
-                <a href="#">Photography</a>
-                <a href="#">Kind Words</a>
                 <a href="#">About</a>
-                <a href="#">Contact</a>
+                <a href="mailto:your@email.com">Contact</a>
             </nav>
         </header>
 
-        <!-- 3x3 IMAGE GRID SECTION -->
         <main class="grid-container">
             <div class="grid">
-                <div class="grid-item"><img src="1.jpg" onerror="tryNextFormat(this)"></div>
-                <div class="grid-item"><img src="2.jpg" onerror="tryNextFormat(this)"></div>
-                <div class="grid-item"><img src="3.jpg" onerror="tryNextFormat(this)"></div>
-                <div class="grid-item"><img src="4.jpg" onerror="tryNextFormat(this)"></div>
-                <div class="grid-item"><img src="5.jpg" onerror="tryNextFormat(this)"></div>
-                <div class="grid-item"><img src="6.jpg" onerror="tryNextFormat(this)"></div>
-                <div class="grid-item"><img src="7.jpg" onerror="tryNextFormat(this)"></div>
-                <div class="grid-item"><img src="8.jpg" onerror="tryNextFormat(this)"></div>
-                <div class="grid-item"><img src="9.jpg" onerror="tryNextFormat(this)"></div>
+                <!-- Data-index is used to fetch the correct .txt file -->
+                <div class="grid-item" data-index="1"><img src="1.jpg" onerror="tryNextFormat(this)"><div class="overlay"><div class="overlay-title"></div><div class="overlay-caption"></div></div></div>
+                <div class="grid-item" data-index="2"><img src="2.jpg" onerror="tryNextFormat(this)"><div class="overlay"><div class="overlay-title"></div><div class="overlay-caption"></div></div></div>
+                <div class="grid-item" data-index="3"><img src="3.jpg" onerror="tryNextFormat(this)"><div class="overlay"><div class="overlay-title"></div><div class="overlay-caption"></div></div></div>
+                <div class="grid-item" data-index="4"><img src="4.jpg" onerror="tryNextFormat(this)"><div class="overlay"><div class="overlay-title"></div><div class="overlay-caption"></div></div></div>
+                <div class="grid-item" data-index="5"><img src="5.jpg" onerror="tryNextFormat(this)"><div class="overlay"><div class="overlay-title"></div><div class="overlay-caption"></div></div></div>
+                <div class="grid-item" data-index="6"><img src="6.jpg" onerror="tryNextFormat(this)"><div class="overlay"><div class="overlay-title"></div><div class="overlay-caption"></div></div></div>
+                <div class="grid-item" data-index="7"><img src="7.jpg" onerror="tryNextFormat(this)"><div class="overlay"><div class="overlay-title"></div><div class="overlay-caption"></div></div></div>
+                <div class="grid-item" data-index="8"><img src="8.jpg" onerror="tryNextFormat(this)"><div class="overlay"><div class="overlay-title"></div><div class="overlay-caption"></div></div></div>
+                <div class="grid-item" data-index="9"><img src="9.jpg" onerror="tryNextFormat(this)"><div class="overlay"><div class="overlay-title"></div><div class="overlay-caption"></div></div></div>
             </div>
         </main>
-
     </div>
 
-    <!-- SCRIPTS -->
     <script>
         const heroContent = document.querySelector('.hero-content');
 
-        // Scroll listener: Dims white text as white layer slides over black hero
+        // Scroll fading effect
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
             const windowHeight = window.innerHeight;
-
-            // Opacity decreases from 1 to 0 as you scroll down
             let opacity = 1 - (scrollY / (windowHeight * 0.6));
             if (opacity < 0) opacity = 0;
             if (opacity > 1) opacity = 1;
-
             heroContent.style.opacity = opacity;
         });
 
-        // Image extension auto-fallback
+        // Image auto-fallback
         function tryNextFormat(img) {
             if (img.src.endsWith('.jpg')) {
                 img.src = img.src.replace('.jpg', '.png');
@@ -255,6 +306,34 @@
                 img.style.opacity = '0';
             }
         }
+
+        // Fetch .txt files for hover text
+        document.querySelectorAll('.grid-item').forEach(item => {
+            const index = item.getAttribute('data-index');
+            
+            fetch(`${index}.txt`)
+                .then(response => {
+                    if (!response.ok) throw new Error('No text file found');
+                    return response.text();
+                })
+                .then(text => {
+                    // Split the text file by line breaks
+                    const lines = text.trim().split('\n');
+                    
+                    if (lines.length > 0) {
+                        // First line is the title
+                        item.querySelector('.overlay-title').innerText = lines[0];
+                        
+                        // Remaining lines become the caption
+                        if (lines.length > 1) {
+                            item.querySelector('.overlay-caption').innerText = lines.slice(1).join('\n');
+                        }
+                    }
+                })
+                .catch(error => {
+                    // If 1.txt is missing, it fails silently and shows no text.
+                });
+        });
     </script>
 
 </body>
