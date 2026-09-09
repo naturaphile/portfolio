@@ -323,12 +323,12 @@
 
         /* ---------- END TOGGLEABLE EFFECTS ---------- */
 
-        /* Overlay & Text - INVERT FIX APPLIED HERE */
+        /* Overlay & Text - INVERT FIX WITH CYAN COLOR BUMP */
         .overlay {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background-color: transparent; /* No dark tint needed anymore */
+            background-color: transparent; 
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
@@ -345,21 +345,20 @@
             position: absolute;
             top: 10px; left: 10px;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 1.15rem; /* Increased size */
             letter-spacing: 0.5px;
             text-transform: uppercase;
-            color: #ffffff; /* Combined with difference makes pure inversion */
-            /* Removed text-shadow for a clean read */
+            color: #00FFFF; /* Pure Cyan to force pop-art difference contrast */
         }
 
         .overlay-caption {
             position: absolute;
             bottom: 10px; left: 10px;
-            font-size: 0.8rem;
+            font-size: 0.95rem; /* Increased size */
             font-weight: normal;
             line-height: 1.3;
             max-width: 90%;
-            color: #ffffff; /* Combined with difference makes pure inversion */
+            color: #00FFFF; /* Pure Cyan */
         }
 
         /* 6. MODAL POPUP STYLING */
