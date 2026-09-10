@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Default title, will be overwritten by title.txt if it exists -->
     <title>Nathan Ramirez | Portfolio</title>
+    
+    <!-- Tab Icon (Favicon) -->
+    <link rel="icon" type="image/png" href="favicon.png">
+
     <style>
         /* 1. AUTO-LOADS FONTS */
         @font-face {
@@ -163,11 +168,16 @@
             z-index: 10;
         }
 
+        /* Updated for Image Logo */
         .brand-name {
-            font-size: 0.9rem;
-            font-weight: bold;
-            letter-spacing: 1.5px;
-            text-transform: uppercase; 
+            display: flex;
+            align-items: center;
+        }
+        
+        .brand-name img {
+            height: 24px; /* Adjust this value to make your logo bigger/smaller */
+            width: auto;
+            display: block;
         }
 
         .white-nav {
@@ -452,7 +462,9 @@
 
     <div class="white-layer">
         <header class="white-header">
-            <div class="brand-name">nathan ramirez</div>
+            <div class="brand-name">
+                <img src="logo.png" alt="Logo">
+            </div>
             <nav class="white-nav">
                 <a class="active" data-target="projects">Projects</a>
                 <a data-target="about">About</a>
@@ -673,6 +685,20 @@
                 })
                 .catch(error => {});
         });
+
+        // --- 6. DYNAMIC TAB TITLE LOGIC ---
+        fetch('title.txt')
+            .then(response => {
+                if (!response.ok) throw new Error('No title file found');
+                return response.text();
+            })
+            .then(text => {
+                const customTitle = text.trim();
+                if (customTitle) {
+                    document.title = customTitle;
+                }
+            })
+            .catch(error => {}); 
     </script>
 </body>
 </html>
