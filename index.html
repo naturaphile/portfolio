@@ -69,12 +69,12 @@
             will-change: filter, opacity; 
         }
 
-        /* --- NEW: HERO TITLE WRAPPER FOR DYNAMIC EFFECTS --- */
+        /* --- HERO TITLE WRAPPER FOR DYNAMIC EFFECTS --- */
         .hero-title-wrapper {
             position: relative;
             display: inline-block;
             margin-bottom: 2rem;
-            cursor: default; /* Keep clean, no pointer */
+            cursor: default; 
         }
 
         .hero-title-wrapper h1 {
@@ -104,15 +104,15 @@
 
         .hero-logo {
             position: absolute;
-            height: 1.1em; /* Scales perfectly with H1 font size */
+            height: 6.5em; /* Scaled up ~6x to match the full name bounding box */
             width: auto;
-            opacity: 0; /* Hidden by default, activated by config classes */
+            opacity: 0; 
         }
 
-        .swipe-bar { display: none; } /* Used only in 'swipe' effect */
+        .swipe-bar { display: none; } 
 
         /* ---------------------------------------------------- */
-        /* EFFECT 1: XEROX (Original Stamp Effect)              */
+        /* EFFECT 1: XEROX                                      */
         /* ---------------------------------------------------- */
         body.name-effect-xerox .name-first, 
         body.name-effect-xerox .name-last {
@@ -133,35 +133,30 @@
         }
 
         /* ---------------------------------------------------- */
-        /* EFFECT 2: CROP (Sequential Inset reveal)             */
+        /* EFFECT 2: CROP                                       */
         /* ---------------------------------------------------- */
         body.name-effect-crop .name-text-wrapper {
             clip-path: inset(0 0 0 0);
-            /* Delays the return of text until logo finishes disappearing */
             transition: clip-path 0.4s cubic-bezier(0.86, 0, 0.07, 1) 0.4s;
         }
         body.name-effect-crop .hero-logo-normal {
             opacity: 1;
-            filter: invert(1); /* Makes the black logo white for dark bg */
+            filter: invert(1); 
             clip-path: inset(0 50% 0 50%);
-            /* Logo leaves immediately on mouseout */
             transition: clip-path 0.4s cubic-bezier(0.86, 0, 0.07, 1) 0s;
         }
         
-        /* Hover States for Crop */
         body.name-effect-crop .hero-title-wrapper:hover .name-text-wrapper {
             clip-path: inset(0 50% 0 50%);
-            /* Text leaves immediately on hover */
             transition: clip-path 0.4s cubic-bezier(0.86, 0, 0.07, 1) 0s;
         }
         body.name-effect-crop .hero-title-wrapper:hover .hero-logo-normal {
             clip-path: inset(0 0 0 0);
-            /* Logo waits for text to vanish before appearing */
             transition: clip-path 0.4s cubic-bezier(0.86, 0, 0.07, 1) 0.4s;
         }
 
         /* ---------------------------------------------------- */
-        /* EFFECT 3: GLITCH (Cyberpunk Alt Logo Flash)          */
+        /* EFFECT 3: GLITCH                                     */
         /* ---------------------------------------------------- */
         body.name-effect-glitch .name-text-wrapper {
             transition: all 0.1s;
@@ -184,7 +179,7 @@
         }
 
         /* ---------------------------------------------------- */
-        /* EFFECT 4: SWIPE (Mirror's Edge Scanner)              */
+        /* EFFECT 4: SWIPE                                      */
         /* ---------------------------------------------------- */
         body.name-effect-swipe .swipe-bar {
             display: block;
@@ -220,7 +215,7 @@
         }
 
         /* ---------------------------------------------------- */
-        /* EFFECT 5: SHATTER (Glass break & pop-in)             */
+        /* EFFECT 5: SHATTER                                    */
         /* ---------------------------------------------------- */
         body.name-effect-shatter .name-first, 
         body.name-effect-shatter .name-last {
@@ -249,7 +244,7 @@
         }
 
         /* ---------------------------------------------------- */
-        /* EFFECT 6: BLUR (High-speed kinetic motion out)       */
+        /* EFFECT 6: BLUR                                       */
         /* ---------------------------------------------------- */
         body.name-effect-blur .name-text-wrapper {
             transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
@@ -258,7 +253,7 @@
             letter-spacing: 25px;
             filter: blur(8px);
             transform: scaleX(1.3);
-            color: #00FFFF; /* Bright cyan speed effect */
+            color: #00FFFF; 
             opacity: 0;
         }
 
@@ -332,23 +327,23 @@
             z-index: 10;
         }
 
-        /* LOGO HOVER EFFECT (QUINT EASING) - REMOVED POINTER */
+        /* BRAND NAME & LOGOS */
         .brand-name {
             display: flex;
             align-items: center;
             position: relative;
-            cursor: default; /* Change requested: Reverted to default pointer */
+            cursor: default; 
         }
         
         .logo-normal {
-            height: 24px;
+            height: 48px; /* Doubled scale */
             width: auto;
             display: block;
             transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .logo-alt {
-            height: 24px;
+            height: 48px; /* Doubled scale */
             width: auto;
             display: block;
             position: absolute;
@@ -632,7 +627,6 @@
     <div class="hero-container">
         <div class="hero-content">
             
-            <!-- UPDATED MAIN HERO TEXT WRAPPER FOR EFFECTS -->
             <div class="hero-title-wrapper">
                 <h1 class="name-text-wrapper">
                     <span class="name-first">nathan</span> 
@@ -754,15 +748,6 @@
             blurEffect: true,
             shineEffect: true,
             nameEffect: "crop" 
-            /* 
-               NAME EFFECT OPTIONS:
-               "xerox"   = The original offset stamp effect.
-               "crop"    = Sequences text shrinking to 0, then the Logo expanding into view.
-               "glitch"  = Text blurs out instantly, distressed altlogo flashes in with cyan/magenta shadows.
-               "swipe"   = A bright cyan scanner bar wipes across the text, revealing the logo behind it.
-               "shatter" = "nathan" and "ramirez" split diagonally while blurring, logo scales in rapidly.
-               "blur"    = Text rapidly tracks out and blurs into neon cyan (no logo).
-            */
         };
 
         fetch('config.json')
@@ -773,7 +758,6 @@
                 if (config.blurEffect) document.body.classList.add('effect-blur');
                 if (config.shineEffect) document.body.classList.add('effect-shine');
                 
-                // Applies chosen name effect class to body
                 const effectToApply = config.nameEffect || 'crop';
                 document.body.classList.add('name-effect-' + effectToApply);
             });
