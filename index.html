@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Default title, will be overwritten by title.txt if it exists -->
     <title>Nathan Ramirez | Portfolio</title>
     
     <!-- Tab Icon (Favicon) -->
@@ -168,16 +167,42 @@
             z-index: 10;
         }
 
-        /* Updated for Image Logo */
+        /* LOGO HOVER EFFECT (QUINT EASING) */
         .brand-name {
             display: flex;
             align-items: center;
+            position: relative;
+            cursor: pointer;
         }
         
-        .brand-name img {
-            height: 24px; /* Adjust this value to make your logo bigger/smaller */
+        .logo-normal {
+            height: 24px;
             width: auto;
             display: block;
+            /* Decays out when leaving hover */
+            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .logo-alt {
+            height: 24px;
+            width: auto;
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transform: scale(0.95); /* Starts slightly shrunken for the sprout */
+            /* Dramatic fast-start, slow-fade transition (ease-out-quint) */
+            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .brand-name:hover .logo-normal {
+            opacity: 0; /* Fade out normal logo */
+        }
+
+        .brand-name:hover .logo-alt {
+            opacity: 1; /* Fade in distressed logo */
+            transform: scale(1); /* Sprout to full size */
         }
 
         .white-nav {
@@ -273,7 +298,6 @@
             perspective: 1000px;
         }
 
-        /* EXACT FOOTPRINT SHADOW */
         body.effect-postit .grid-item::before {
             content: '';
             position: absolute;
@@ -291,7 +315,6 @@
             opacity: 1; 
         }
 
-        /* 3D Lift applied ONLY to image card */
         body.effect-postit .grid-item-inner {
             transform-origin: top left; 
             transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
@@ -304,14 +327,12 @@
             transform: rotateX(-8deg) rotateY(8deg) scale(1.02);
         }
 
-        /* B) BLUR EFFECT */
         body.effect-blur .grid-item:hover .grid-item-inner img,
         body.effect-blur .grid-item.hovered .grid-item-inner img {
             filter: blur(4px); 
             transform: scale(1.05); 
         }
 
-        /* C) SHINE EFFECT */
         body.effect-shine .grid-item-inner::after {
             content: '';
             position: absolute;
@@ -331,9 +352,7 @@
             left: 150%;
         }
 
-        /* ---------- END TOGGLEABLE EFFECTS ---------- */
-
-        /* Overlay & Text - INVERT FIX WITH CYAN COLOR BUMP */
+        /* Overlay & Text */
         .overlay {
             position: absolute;
             top: 0; left: 0;
@@ -343,7 +362,7 @@
             transition: opacity 0.3s ease;
             pointer-events: none;
             z-index: 15; 
-            mix-blend-mode: difference; /* Blends the whole container against the image */
+            mix-blend-mode: difference;
         }
 
         .grid-item:hover .overlay,
@@ -355,20 +374,20 @@
             position: absolute;
             top: 10px; left: 10px;
             font-weight: bold;
-            font-size: 1.15rem; /* Increased size */
+            font-size: 1.15rem;
             letter-spacing: 0.5px;
             text-transform: uppercase;
-            color: #00FFFF; /* Pure Cyan to force pop-art difference contrast */
+            color: #00FFFF;
         }
 
         .overlay-caption {
             position: absolute;
             bottom: 10px; left: 10px;
-            font-size: 0.95rem; /* Increased size */
+            font-size: 0.95rem;
             font-weight: normal;
             line-height: 1.3;
             max-width: 90%;
-            color: #00FFFF; /* Pure Cyan */
+            color: #00FFFF;
         }
 
         /* 6. MODAL POPUP STYLING */
@@ -462,9 +481,12 @@
 
     <div class="white-layer">
         <header class="white-header">
+            <!-- UPDATED DUAL-LOGO WRAPPER -->
             <div class="brand-name">
-                <img src="logo.png" alt="Logo">
+                <img src="logo.png" alt="Logo" class="logo-normal">
+                <img src="altlogo.png" alt="Distressed Logo" class="logo-alt">
             </div>
+            
             <nav class="white-nav">
                 <a class="active" data-target="projects">Projects</a>
                 <a data-target="about">About</a>
