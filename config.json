@@ -1,6 +1,6 @@
 {
     "postItEffect": true,
-    "blurEffect": false,
-    "shineEffect": false,
+    "blurEffect": true,
+    "shineEffect": true,
     "darkOverlay": false
 }
