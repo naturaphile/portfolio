@@ -778,18 +778,22 @@
         const modalCaptionText = document.getElementById('modal-caption');
         const closeBtn = document.querySelector('.modal-close');
 
-        // SCROLL-TRIGGERED HOVER FOR MOBILE DEVICES
+        // SCROLL-TRIGGERED HOVER FOR MOBILE DEVICES (WITH TIGHT CENTER ACTIVATION ZONE)
         if (window.matchMedia("(pointer: coarse)").matches) {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    // Triggers when at least 50% of the image is on screen
                     if (entry.isIntersecting) {
                         entry.target.classList.add('hovered');
                     } else {
                         entry.target.classList.remove('hovered');
                     }
                 });
-            }, { threshold: 0.5 }); 
+            }, { 
+                // This shrinks the trigger zone by 35% on top and 35% on bottom.
+                // It only activates when an image enters the middle 30% of your screen.
+                rootMargin: "-35% 0px -35% 0px", 
+                threshold: 0 
+            }); 
 
             document.querySelectorAll('.grid-item').forEach(item => {
                 observer.observe(item);
